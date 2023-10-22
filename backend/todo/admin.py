@@ -3,7 +3,7 @@ from .models import Todo
 
 
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ("title", "done")
+    list_display = ("id", "title", "done")
 
 
 # Register your models here.

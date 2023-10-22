@@ -24,3 +24,16 @@ def todo_endpoint(request: HttpRequest) -> JsonResponse:
             all_in_list.append(model_to_dict(todo))
 
         return JsonResponse(all_in_list, safe=False)
+
+
+@csrf_exempt
+def todo_update_del(request: HttpRequest, id: int) -> JsonResponse:
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        title = data["title"]
+        done = data["done"]
+        todo = Todo.objects.get(id=id)
+        todo.title = title
+        todo.done = done
+        todo.save()
+        return JsonResponse(model_to_dict(todo))
