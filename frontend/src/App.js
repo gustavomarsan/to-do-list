@@ -1,11 +1,11 @@
-import Task from "./Task";
+import Todo from "./Todo";
 function App() {
   return (
     <div>
       <header>
         The TODO App
       </header>
-      <Task task={{ title: "My first task", done: false }} />
+      <Todo task={{ title: "My first task", done: false }} />
     </div>
   );
 }
