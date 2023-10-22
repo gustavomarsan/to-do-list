@@ -16,8 +16,16 @@ def todo_endpoint(request: HttpRequest) -> JsonResponse:
         done = data["done"]
         new_todo = Todo.objects.create(title=title, done=done)
         return JsonResponse(model_to_dict(new_todo))
+      
+    if request.method == "GET":
+        all_todo = list(Todo.objects.all())
+        all_in_list = []
+        for todo in all_todo:
+            all_in_list.append(model_to_dict(todo))
 
+        return JsonResponse(all_in_list, safe=False)
 
+      
 @csrf_exempt
 def todo_update_del(request: HttpRequest, id: int) -> JsonResponse:
     if request.method == "PUT":
