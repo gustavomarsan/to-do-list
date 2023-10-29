@@ -1,6 +1,6 @@
 from todo.models import Todo
 from django.shortcuts import render
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 import json
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
@@ -37,3 +37,8 @@ def todo_update_del(request: HttpRequest, id: int) -> JsonResponse:
         todo.done = done
         todo.save()
         return JsonResponse(model_to_dict(todo))
+
+    if request.method == "DELETE":
+        todo = Todo.objects.get(id=id)
+        todo.delete()
+        return HttpResponse()
