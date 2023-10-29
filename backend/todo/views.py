@@ -4,7 +4,6 @@ from django.http import HttpRequest, JsonResponse, HttpResponse
 import json
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
 from todo.decorators import error_handler_decorator
 
 # Create your views here.
