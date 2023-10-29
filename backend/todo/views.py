@@ -4,16 +4,18 @@ from django.http import HttpRequest, JsonResponse, HttpResponse
 import json
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
+from todo.decorators import error_handler_decorator
 
 # Create your views here.
 
 
 @csrf_exempt
-def todo_endpoint(request: HttpRequest) -> JsonResponse:
+@error_handler_decorator
+def todo_endpoint(request: HttpRequest, *args) -> JsonResponse:
     if request.method == "POST":
         data = json.loads(request.body)
         title = data["title"]
-        done = data["done"]
+        done = data.get("done", False)
         new_todo = Todo.objects.create(title=title, done=done)
         return JsonResponse(model_to_dict(new_todo), status=201)
 
@@ -27,6 +29,7 @@ def todo_endpoint(request: HttpRequest) -> JsonResponse:
 
 
 @csrf_exempt
+@error_handler_decorator
 def todo_update_del(request: HttpRequest, id: int) -> JsonResponse:
     if request.method == "PUT":
         data = json.loads(request.body)
