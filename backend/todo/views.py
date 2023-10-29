@@ -15,7 +15,7 @@ def todo_endpoint(request: HttpRequest) -> JsonResponse:
         title = data["title"]
         done = data["done"]
         new_todo = Todo.objects.create(title=title, done=done)
-        return JsonResponse(model_to_dict(new_todo))
+        return JsonResponse(model_to_dict(new_todo), status=201)
 
     if request.method == "GET":
         all_todo = list(Todo.objects.all())
@@ -41,4 +41,4 @@ def todo_update_del(request: HttpRequest, id: int) -> JsonResponse:
     if request.method == "DELETE":
         todo = Todo.objects.get(id=id)
         todo.delete()
-        return HttpResponse()
+        return HttpResponse(status=204)
