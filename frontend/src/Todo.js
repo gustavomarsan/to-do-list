@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import CheckBox from "./utils/CheckBox";
+import TextBox from "./utils/TextBox";
 
 function Todo({ todo: todo }) {
     const [title, setTitle] = useState(todo.title);
+    const [newTitle, setNewTitle] = useState(todo.title);
     const [done, setDone] = useState(todo.done);
+    const [editing, setEditing] = useState(false);
     
     async function updateTodo(title, done) {
         const response = await fetch(`http://localhost:8000/todo/${todo.id}/`, {
@@ -20,13 +23,25 @@ function Todo({ todo: todo }) {
         const updatedTodo = await response.json()
         setTitle(updatedTodo.title)
         setDone(updatedTodo.done)
+        setEditing(false)
     }
 
-
     return (
-        <div>
-            <CheckBox label={title} value={done} setValue={() => updateTodo(title, !done)} />
-        </div>
+        <>
+            {editing ? (
+                <>
+                    <TextBox value={newTitle} setValue={setNewTitle} />
+                    <button onClick={() => updateTodo(newTitle, done)}>Save</button>
+                    <button onClick={() => {setEditing(false); setNewTitle(title)}}>Cancel</button>
+                </>
+            ) : (  
+                <>
+                    <CheckBox label={title} value={done} setValue={(done) => updateTodo(title, done)} />
+                    <button onClick={() => setEditing(true)}>Edit</button>
+                </>
+            )}
+            
+        </>
     )
 }
 
