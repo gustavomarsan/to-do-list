@@ -24,12 +24,13 @@ function App() {
     setNewTodo("")
   }
 
+  async function fetchTodos() {
+    const response = await fetch("http://localhost:8000/todo/")
+    const todos = await response.json()
+    setTodos(todos)
+  }
+
   useEffect(() => {
-    async function fetchTodos() {
-      const response = await fetch("http://localhost:8000/todo/")
-      const todos = await response.json()
-      setTodos(todos)
-    }
     fetchTodos()
   }
     , [])
@@ -41,9 +42,13 @@ function App() {
       </header>
       <TextBox value={newTodo} setValue={setNewTodo} />
       <button onClick={createTodo}>Save</button>
+      <ul>
       {todos.map((todo) => (
-        <Todo key={todo.id} todo={todo} />
+        <li key={todo.id}>
+          <Todo todo={todo} onDelete={fetchTodos} />
+        </li>
       ))}
+      </ul>
     </div>
   );
 }
