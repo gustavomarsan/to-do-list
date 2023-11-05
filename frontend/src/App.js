@@ -19,7 +19,6 @@ function App() {
       return
     }
     const newTodoResponse = await response.json()
-    console.log(newTodoResponse)
 
     setTodos([...todos, newTodoResponse])
     setNewTodo("")
@@ -29,7 +28,6 @@ function App() {
     async function fetchTodos() {
       const response = await fetch("http://localhost:8000/todo/")
       const todos = await response.json()
-      console.log(todos)
       setTodos(todos)
     }
     fetchTodos()
@@ -44,7 +42,7 @@ function App() {
       <TextBox value={newTodo} setValue={setNewTodo} />
       <button onClick={createTodo}>Save</button>
       {todos.map((todo) => (
-        <Todo key={todo.id} task={todo} />
+        <Todo key={todo.id} todo={todo} />
       ))}
     </div>
   );
