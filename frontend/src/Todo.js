@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import CheckBox from "./utils/CheckBox";
 import TextBox from "./utils/TextBox";
 
-function Todo({ todo: todo }) {
+function Todo({ todo: todo, onDelete }) {
     const [title, setTitle] = useState(todo.title);
     const [newTitle, setNewTitle] = useState(todo.title);
     const [done, setDone] = useState(todo.done);
@@ -26,6 +26,20 @@ function Todo({ todo: todo }) {
         setEditing(false)
     }
 
+    async function deleteTodo() {
+        const response = await fetch(`http://localhost:8000/todo/${todo.id}/`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        if (response.status !== 204) {
+            console.log("Error deleting todo")
+            return
+        }
+        onDelete()
+    }
+
     return (
         <>
             {editing ? (
@@ -38,6 +52,7 @@ function Todo({ todo: todo }) {
                 <>
                     <CheckBox label={title} value={done} setValue={(done) => updateTodo(title, done)} />
                     <button onClick={() => setEditing(true)}>Edit</button>
+                    <button onClick={deleteTodo}>Delete</button>
                 </>
             )}
             
