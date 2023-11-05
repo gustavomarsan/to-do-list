@@ -1,6 +1,6 @@
 import Todo from "./Todo";
 import TextBox from "./utils/TextBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -24,6 +24,17 @@ function App() {
     setTodos([...todos, newTodoResponse])
     setNewTodo("")
   }
+
+  useEffect(() => {
+    async function fetchTodos() {
+      const response = await fetch("http://localhost:8000/todo/")
+      const todos = await response.json()
+      console.log(todos)
+      setTodos(todos)
+    }
+    fetchTodos()
+  }
+    , [])
 
   return (
     <div>
