@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CheckBox from "../utils/CheckBox";
-import TextBox from "../utils/TextBox";
+import Input from "../utils/Input";
 
-function Todo({ todo: todo, onDelete }) {
+function Todo({ todo, onDelete }) {
     const [title, setTitle] = useState(todo.title);
     const [newTitle, setNewTitle] = useState(todo.title);
     const [done, setDone] = useState(todo.done);
@@ -44,7 +44,7 @@ function Todo({ todo: todo, onDelete }) {
         <>
             {editing ? (
                 <>
-                    <TextBox value={newTitle} setValue={setNewTitle} />
+                    <Input value={newTitle} setValue={setNewTitle} />
                     <button onClick={() => updateTodo(newTitle, done)}>Save</button>
                     <button onClick={() => { setEditing(false); setNewTitle(title) }}>Cancel</button>
                 </>
