@@ -10,6 +10,7 @@ function Signup() {
 
     return (
         <div>
+            <h1>Sign up</h1>
             <Input label="First Name" placeholder="First Name" value={firstName} setValue={setFirstName} />
             <Input label="Last Name" placeholder="Last Name" value={lastName} setValue={setLastName} />
             <Input label="Username" placeholder="Username" value={username} setValue={setUsername} />
