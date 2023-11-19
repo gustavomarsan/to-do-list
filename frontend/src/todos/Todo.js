@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import CheckBox from "./utils/CheckBox";
-import TextBox from "./utils/TextBox";
+import { useState } from "react";
+import CheckBox from "../utils/CheckBox";
+import TextBox from "../utils/TextBox";
 
 function Todo({ todo: todo, onDelete }) {
     const [title, setTitle] = useState(todo.title);
     const [newTitle, setNewTitle] = useState(todo.title);
     const [done, setDone] = useState(todo.done);
     const [editing, setEditing] = useState(false);
-    
+
     async function updateTodo(title, done) {
         const response = await fetch(`http://localhost:8000/todo/${todo.id}/`, {
             method: "PUT",
@@ -46,16 +46,16 @@ function Todo({ todo: todo, onDelete }) {
                 <>
                     <TextBox value={newTitle} setValue={setNewTitle} />
                     <button onClick={() => updateTodo(newTitle, done)}>Save</button>
-                    <button onClick={() => {setEditing(false); setNewTitle(title)}}>Cancel</button>
+                    <button onClick={() => { setEditing(false); setNewTitle(title) }}>Cancel</button>
                 </>
-            ) : (  
+            ) : (
                 <>
                     <CheckBox label={title} value={done} setValue={(done) => updateTodo(title, done)} />
                     <button onClick={() => setEditing(true)}>Edit</button>
                     <button onClick={deleteTodo}>Delete</button>
                 </>
             )}
-            
+
         </>
     )
 }
