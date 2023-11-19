@@ -1,14 +1,17 @@
 import Todos from "./todos/Todos";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
 
   return (
-    <div>
+    <Router>
       <header>
         The TODO App
       </header>
-      <Todos />
-    </div>
+      <Routes>
+        <Route path="/" element={<Todos />} />
+      </Routes>
+    </Router>
   );
 }
 
