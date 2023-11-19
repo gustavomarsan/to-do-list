@@ -18,5 +18,5 @@ from django.urls import path
 from auth import views
 
 urlpatterns = [
-    path("", views.auth),
+    path("sign_up", views.sign_up),
 ]
