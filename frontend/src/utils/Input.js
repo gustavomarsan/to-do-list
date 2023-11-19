@@ -6,12 +6,12 @@ function Input({ label, placeholder, value, setValue }) {
         <div>
             <label>{label}</label>
             <input
-                type={placeholder === "password" && !showPassword ? "password" : "text"}
+                type={placeholder === "Password" && !showPassword ? "Password" : "text"}
                 placeholder={placeholder}
                 value={value}
                 onChange={e => setValue(e.target.value)}
             />
-            {label === "Password" && (
+            {placeholder === "Password" && (
                 <button onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? "Hide password" : "Show password"}
                 </button>

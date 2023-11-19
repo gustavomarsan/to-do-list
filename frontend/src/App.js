@@ -1,4 +1,5 @@
 import Login from "./auth/Login";
+import Signup from "./auth/Signup";
 import Todos from "./todos/Todos";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Todos />} />
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
       </Routes>
     </Router>
   );

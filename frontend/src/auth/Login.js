@@ -8,8 +8,8 @@ function Login() {
     return (
         <div>
             <h1>Login</h1>
-            <Input label="Email" placeholder="email" value={email} setValue={setEmail} />
-            <Input label="Password" placeholder="password" value={password} setValue={setPassword} />
+            <Input label="Email" placeholder="Email" value={email} setValue={setEmail} />
+            <Input label="Password" placeholder="Password" value={password} setValue={setPassword} />
             <button>Login</button>
         </div>
     )
