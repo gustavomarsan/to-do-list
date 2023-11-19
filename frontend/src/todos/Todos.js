@@ -1,5 +1,5 @@
 import Todo from "./Todo";
-import TextBox from "../utils/TextBox";
+import Input from "../utils/Input";
 import { useEffect, useState } from "react";
 
 function Todos() {
@@ -37,7 +37,7 @@ function Todos() {
 
     return (
         <div>
-            <TextBox value={newTodo} setValue={setNewTodo} />
+            <Input value={newTodo} setValue={setNewTodo} />
             <button onClick={createTodo}>Save</button>
             <ul>
                 {todos.map((todo) => (
