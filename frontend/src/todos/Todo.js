@@ -2,13 +2,13 @@ import { useState } from "react";
 import CheckBox from "../utils/CheckBox";
 import Input from "../utils/Input";
 
-function Todo({ todo, onDelete }) {
+const Todo = ({ todo, onDelete }) => {
     const [title, setTitle] = useState(todo.title);
     const [newTitle, setNewTitle] = useState(todo.title);
     const [done, setDone] = useState(todo.done);
     const [editing, setEditing] = useState(false);
 
-    async function updateTodo(title, done) {
+    const updateTodo = async (title, done) => {
         const response = await fetch(`http://localhost:8000/todo/${todo.id}/`, {
             method: "PUT",
             headers: {
@@ -26,7 +26,7 @@ function Todo({ todo, onDelete }) {
         setEditing(false)
     }
 
-    async function deleteTodo() {
+    const deleteTodo = async () => {
         const response = await fetch(`http://localhost:8000/todo/${todo.id}/`, {
             method: "DELETE",
             headers: {
@@ -40,24 +40,26 @@ function Todo({ todo, onDelete }) {
         onDelete()
     }
 
-    return (
+    const editingTodo = (
         <>
-            {editing ? (
-                <>
-                    <Input value={newTitle} setValue={setNewTitle} />
-                    <button onClick={() => updateTodo(newTitle, done)}>Save</button>
-                    <button onClick={() => { setEditing(false); setNewTitle(title) }}>Cancel</button>
-                </>
-            ) : (
-                <>
-                    <CheckBox label={title} value={done} setValue={(done) => updateTodo(title, done)} />
-                    <button onClick={() => setEditing(true)}>Edit</button>
-                    <button onClick={deleteTodo}>Delete</button>
-                </>
-            )}
-
+            <Input value={newTitle} setValue={setNewTitle} buttons={[
+                <button className="btn btn-primary" onClick={() => updateTodo(newTitle, done)}>Save</button>,
+                <button className="btn btn-danger" onClick={() => { setEditing(false); setNewTitle(title) }}>Cancel</button>
+            ]} />
         </>
-    )
+    );
+
+    const todoElements = (
+        <div className="d-flex justify-content-between">
+            <CheckBox label={title} value={done} setValue={(done) => updateTodo(title, done)} />
+            <div className="btn-group">
+                <button className="btn btn-secondary" onClick={() => setEditing(true)}>Edit</button>
+                <button className="btn btn-danger" onClick={deleteTodo}>Delete</button>
+            </div>
+        </div>
+    );
+
+    return editing ? editingTodo : todoElements;
 }
 
 export default Todo;

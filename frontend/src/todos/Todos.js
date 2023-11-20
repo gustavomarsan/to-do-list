@@ -2,10 +2,10 @@ import Todo from "./Todo";
 import Input from "../utils/Input";
 import { useEffect, useState } from "react";
 
-function Todos() {
+const Todos = () => {
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState("");
-    async function createTodo() {
+    const createTodo = async () => {
         const response = await fetch("http://localhost:8000/todo/", {
             method: "POST",
             headers: {
@@ -24,7 +24,7 @@ function Todos() {
         setNewTodo("")
     }
 
-    async function fetchTodos() {
+    const fetchTodos = async () => {
         const response = await fetch("http://localhost:8000/todo/")
         const todos = await response.json()
         setTodos(todos)
@@ -36,17 +36,18 @@ function Todos() {
         , [])
 
     return (
-        <div>
-            <Input value={newTodo} setValue={setNewTodo} />
-            <button onClick={createTodo}>Save</button>
-            <ul>
+        <>
+            <Input value={newTodo} setValue={setNewTodo} buttons={[
+                <button className="btn btn-primary" onClick={createTodo}>Save</button>
+            ]} />
+            <ul className="list-group list-group-flush">
                 {todos.map((todo) => (
-                    <li key={todo.id}>
+                    <li key={todo.id} className="list-group-item">
                         <Todo todo={todo} onDelete={fetchTodos} />
                     </li>
                 ))}
             </ul>
-        </div>
+        </>
     );
 }
 
