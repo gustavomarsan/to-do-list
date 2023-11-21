@@ -1,21 +1,20 @@
-import { useState } from "react";
-
-function Input({ label, placeholder, value, setValue }) {
-    const [showPassword, setShowPassword] = useState(false);
+import { useId } from "react";
+const Input = ({ label, placeholder, value, setValue, buttons = [], type = "text" }) => {
+    const id = useId();
     return (
-        <div>
-            <label>{label}</label>
-            <input
-                type={placeholder === "Password" && !showPassword ? "Password" : "text"}
-                placeholder={placeholder}
-                value={value}
-                onChange={e => setValue(e.target.value)}
-            />
-            {placeholder === "Password" && (
-                <button onClick={() => setShowPassword(!showPassword)}>
-                    {showPassword ? "Hide password" : "Show password"}
-                </button>
-            )}
+        <div className="my-3">
+            <label htmlFor={id}>{label}</label>
+            <div className="input-group">
+                <input
+                    type={type}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={e => setValue(e.target.value)}
+                    id={id}
+                    className="form-control"
+                />
+                {buttons}
+            </div>
         </div>
     );
 }
