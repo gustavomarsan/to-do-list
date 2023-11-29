@@ -15,11 +15,11 @@ def sign_up(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         data = json.loads(request.body)
         username = data["username"]
-        pasword = data["password"]
+        password = data["password"]
         email = data["email"]
         first_name = data["first_name"]
         last_name = data["last_name"]
-        new_user = User.objects.create_user(username, pasword, email)
+        new_user = User.objects.create_user(username, email, password)
         new_user.first_name = first_name
         new_user.last_name = last_name
         new_user.save()
