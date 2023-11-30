@@ -11,7 +11,7 @@ from todo.decorators import error_handler_decorator
 
 @csrf_exempt
 @error_handler_decorator
-def todo_endpoint(request: HttpRequest, *args) -> JsonResponse:
+def todo_endpoint(request: HttpRequest) -> JsonResponse:
     if request.method == "POST":
         data = json.loads(request.body)
         title = data["title"]
